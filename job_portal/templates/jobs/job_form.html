@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:800px">
+  <div class="glass-card p-4">
+    <h2 class="fw-700 mb-4">{{ title }}</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="row g-3">
+        <div class="col-12"><label class="form-label fw-500">Job Title *</label>{{ form.title }}{% if form.title.errors %}<div class="text-danger small">{{ form.title.errors.0 }}</div>{% endif %}</div>
+        <div class="col-md-6"><label class="form-label fw-500">Category</label>{{ form.category }}</div>
+        <div class="col-md-6"><label class="form-label fw-500">Company</label>{{ form.company }}</div>
+        <div class="col-12"><label class="form-label fw-500">Job Description *</label>{{ form.description }}</div>
+        <div class="col-12"><label class="form-label fw-500">Requirements</label>{{ form.requirements }}</div>
+        <div class="col-12"><label class="form-label fw-500">Benefits</label>{{ form.benefits }}</div>
+        <div class="col-12"><label class="form-label fw-500">Skills Required</label>{{ form.skills_required }}</div>
+        <div class="col-md-6"><label class="form-label fw-500">Job Type</label>{{ form.job_type }}</div>
+        <div class="col-md-6"><label class="form-label fw-500">Experience Level</label>{{ form.experience_level }}</div>
+        <div class="col-md-6"><label class="form-label fw-500">Location</label>{{ form.location }}</div>
+        <div class="col-md-6"><label class="form-label fw-500">Deadline</label>{{ form.deadline }}</div>
+        <div class="col-md-4"><label class="form-label fw-500">Min Salary</label>{{ form.salary_min }}</div>
+        <div class="col-md-4"><label class="form-label fw-500">Max Salary</label>{{ form.salary_max }}</div>
+        <div class="col-md-4"><label class="form-label fw-500">Currency</label>{{ form.salary_currency }}</div>
+        <div class="col-md-6 d-flex align-items-center gap-3">
+          <div class="form-check">{{ form.is_remote }}<label class="form-check-label fw-500">Remote Position</label></div>
+          <div class="form-check">{{ form.is_featured }}<label class="form-check-label fw-500">Featured</label></div>
+          <div class="form-check">{{ form.is_active }}<label class="form-check-label fw-500">Active</label></div>
+        </div>
+        <div class="col-12 d-flex gap-3">
+          <button type="submit" class="btn btn-primary btn-rounded px-5">{{ title }}</button>
+          <a href="{% url 'dashboard:recruiter' %}" class="btn btn-outline-secondary btn-rounded">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

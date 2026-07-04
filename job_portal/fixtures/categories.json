@@ -1,0 +1,74 @@
+[
+  {
+    "model": "jobs.category",
+    "pk": 1,
+    "fields": {
+      "name": "Technology",
+      "icon": "laptop",
+      "slug": "technology"
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 2,
+    "fields": {
+      "name": "Design",
+      "icon": "palette",
+      "slug": "design"
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 3,
+    "fields": {
+      "name": "Marketing",
+      "icon": "megaphone",
+      "slug": "marketing"
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 4,
+    "fields": {
+      "name": "Finance",
+      "icon": "graph-up",
+      "slug": "finance"
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 5,
+    "fields": {
+      "name": "Healthcare",
+      "icon": "heart-pulse",
+      "slug": "healthcare"
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 6,
+    "fields": {
+      "name": "Education",
+      "icon": "book",
+      "slug": "education"
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 7,
+    "fields": {
+      "name": "Engineering",
+      "icon": "gear",
+      "slug": "engineering"
+    }
+  },
+  {
+    "model": "jobs.category",
+    "pk": 8,
+    "fields": {
+      "name": "Sales",
+      "icon": "bag",
+      "slug": "sales"
+    }
+  }
+]

@@ -1,0 +1,28 @@
+{% load static %}
+<div class="job-card glass-card h-100">
+  <div class="job-card-header d-flex justify-content-between align-items-start mb-3">
+    <div class="d-flex align-items-center gap-3">
+      <div class="company-logo-sm">
+        {% if job.company and job.company.logo %}<img src="{{ job.company.logo.url }}" alt="{{ job.company.name }}"/>
+        {% else %}<i class="bi bi-building text-primary fs-4"></i>{% endif %}
+      </div>
+      <div>
+        <div class="fw-600 small text-muted">{{ job.company_name }}</div>
+        <div class="text-muted x-small"><i class="bi bi-geo-alt me-1"></i>{{ job.location }}</div>
+      </div>
+    </div>
+    {% if job.is_featured %}<span class="badge badge-featured"><i class="bi bi-star-fill me-1"></i>Featured</span>{% endif %}
+  </div>
+  <h5 class="job-title mb-2"><a href="{% url 'jobs:job_detail' job.slug %}" class="text-decoration-none">{{ job.title }}</a></h5>
+  <p class="text-muted small mb-3">{{ job.description|truncatechars:100 }}</p>
+  <div class="d-flex flex-wrap gap-2 mb-3">
+    <span class="badge badge-type">{{ job.get_job_type_display }}</span>
+    <span class="badge badge-exp">{{ job.get_experience_level_display }}</span>
+    {% if job.is_remote %}<span class="badge badge-remote"><i class="bi bi-wifi me-1"></i>Remote</span>{% endif %}
+  </div>
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="salary fw-600 text-primary small">{{ job.salary_range }}</div>
+    <div class="text-muted x-small">{{ job.created_at|timesince }} ago</div>
+  </div>
+  <a href="{% url 'jobs:job_detail' job.slug %}" class="stretched-link"></a>
+</div>

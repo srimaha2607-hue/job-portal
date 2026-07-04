@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Notifications{% endblock %}
+{% block content %}
+<div class="container py-5" style="max-width:700px">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-700">Notifications</h2>
+    <a href="{% url 'notifications:mark_all_read' %}" class="btn btn-outline-primary btn-rounded btn-sm">Mark All Read</a>
+  </div>
+  {% if notifications %}
+  {% for n in notifications %}
+  <div class="glass-card p-3 mb-3 {% if not n.is_read %}border-start border-4 border-primary{% endif %}">
+    <div class="d-flex align-items-start gap-3">
+      <div class="notif-type-icon text-{% if n.notification_type == 'accepted' %}success{% elif n.notification_type == 'rejected' %}danger{% else %}primary{% endif %}">
+        <i class="bi bi-{% if n.notification_type == 'accepted' %}check-circle-fill{% elif n.notification_type == 'rejected' %}x-circle-fill{% elif n.notification_type == 'applied' %}send-fill{% else %}bell-fill{% endif %} fs-5"></i>
+      </div>
+      <div class="flex-grow-1">
+        <div class="fw-600">{{ n.title }}</div>
+        <div class="text-muted small">{{ n.message }}</div>
+        <div class="text-muted x-small mt-1">{{ n.created_at|timesince }} ago</div>
+      </div>
+      {% if not n.is_read %}<span class="badge bg-primary rounded-pill">New</span>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="text-center py-5">
+    <i class="bi bi-bell display-3 text-muted opacity-50"></i>
+    <p class="text-muted mt-3">No notifications yet.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Create Account{% endblock %}
+{% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card glass-card" style="max-width:520px">
+    <div class="text-center mb-4">
+      <i class="bi bi-person-plus-fill text-primary fs-1"></i>
+      <h2 class="fw-700 mt-2">Create Account</h2>
+      <p class="text-muted">Join thousands of professionals</p>
+    </div>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="row g-3">
+        <div class="col-6">
+          <label class="form-label fw-500">First Name</label>
+          {{ form.first_name }}
+          {% if form.first_name.errors %}<div class="text-danger small">{{ form.first_name.errors.0 }}</div>{% endif %}
+        </div>
+        <div class="col-6">
+          <label class="form-label fw-500">Last Name</label>
+          {{ form.last_name }}
+          {% if form.last_name.errors %}<div class="text-danger small">{{ form.last_name.errors.0 }}</div>{% endif %}
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-500">Email Address</label>
+          {{ form.email }}
+          {% if form.email.errors %}<div class="text-danger small">{{ form.email.errors.0 }}</div>{% endif %}
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-500">I am a</label>
+          {{ form.role }}
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-500">Password</label>
+          {{ form.password1 }}
+          {% if form.password1.errors %}<div class="text-danger small">{{ form.password1.errors.0 }}</div>{% endif %}
+          <div class="form-text small">Min 8 chars, 1 uppercase, 1 number.</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label fw-500">Confirm Password</label>
+          {{ form.password2 }}
+          {% if form.password2.errors %}<div class="text-danger small">{{ form.password2.errors.0 }}</div>{% endif %}
+        </div>
+        {% if form.non_field_errors %}<div class="col-12"><div class="alert alert-danger">{{ form.non_field_errors.0 }}</div></div>{% endif %}
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary w-100 btn-rounded btn-lg">Create Account</button>
+        </div>
+      </div>
+    </form>
+    <hr class="my-4">
+    <p class="text-center text-muted mb-0">Already have an account? <a href="{% url 'accounts:login' %}" class="text-primary fw-500">Sign In</a></p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,3 @@
+/* Jobs CSS */
+.filter-sidebar .glass-card { position: sticky; top: 80px; }
+.job-card { transition: all .25s; }

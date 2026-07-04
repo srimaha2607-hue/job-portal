@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card glass-card">
+    <div class="auth-logo text-center mb-4">
+      <i class="bi bi-briefcase-fill text-primary fs-1"></i>
+      <h2 class="fw-700 mt-2">Welcome Back</h2>
+      <p class="text-muted">Sign in to your account</p>
+    </div>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label fw-500">Email Address</label>
+        {{ form.username }}
+        {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors.0 }}</div>{% endif %}
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-500">Password</label>
+        <div class="input-group">
+          {{ form.password }}
+          <button class="btn btn-outline-secondary" type="button" id="togglePass"><i class="bi bi-eye"></i></button>
+        </div>
+        {% if form.password.errors %}<div class="text-danger small mt-1">{{ form.password.errors.0 }}</div>{% endif %}
+      </div>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="rememberMe">
+          <label class="form-check-label small" for="rememberMe">Remember me</label>
+        </div>
+        <a href="{% url 'accounts:password_reset' %}" class="small text-primary">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn btn-primary w-100 btn-rounded btn-lg">Sign In</button>
+    </form>
+    <hr class="my-4">
+    <p class="text-center text-muted mb-0">Don't have an account? <a href="{% url 'accounts:register' %}" class="text-primary fw-500">Sign Up</a></p>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+document.getElementById('togglePass').addEventListener('click',function(){
+  const p=document.querySelector('input[name="password"]');
+  const i=this.querySelector('i');
+  if(p.type==='password'){p.type='text';i.className='bi bi-eye-slash';}
+  else{p.type='password';i.className='bi bi-eye';}
+});
+</script>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row g-4">
+    <!-- Sidebar -->
+    <div class="col-lg-3">
+      <div class="glass-card p-4 text-center mb-4">
+        <div class="avatar-wrapper mb-3">
+          <img src="{{ profile.avatar_url }}" alt="Avatar" class="rounded-circle" style="width:100px;height:100px;object-fit:cover">
+        </div>
+        <h5 class="fw-700">{{ user.full_name }}</h5>
+        <span class="badge bg-primary">{{ user.get_role_display }}</span>
+        <div class="text-muted small mt-2">{{ user.email }}</div>
+      </div>
+      <!-- 2FA card -->
+      <div class="glass-card p-4">
+        <h6 class="fw-600 mb-3"><i class="bi bi-shield-lock me-2"></i>Security</h6>
+        {% if user.two_factor_enabled %}
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-check-circle-fill text-success me-2"></i>
+          <span class="small">2FA Enabled</span>
+        </div>
+        <a href="{% url 'accounts:disable_2fa' %}" class="btn btn-sm btn-outline-danger w-100 btn-rounded">Disable 2FA</a>
+        {% else %}
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-x-circle-fill text-danger me-2"></i>
+          <span class="small">2FA Disabled</span>
+        </div>
+        <a href="{% url 'accounts:setup_2fa' %}" class="btn btn-sm btn-outline-primary w-100 btn-rounded">Enable 2FA</a>
+        {% endif %}
+        <hr>
+        <a href="{% url 'accounts:password_reset' %}" class="btn btn-sm btn-outline-secondary w-100 btn-rounded">Change Password</a>
+      </div>
+    </div>
+    <!-- Main Form -->
+    <div class="col-lg-9">
+      <div class="glass-card p-4 mb-4">
+        <h4 class="fw-600 mb-4">Edit Profile</h4>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-500">First Name</label>
+              {{ form.first_name }}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">Last Name</label>
+              {{ form.last_name }}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">Phone</label>
+              {{ form.phone }}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">Location</label>
+              {{ form.location }}
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-500">Bio</label>
+              {{ form.bio }}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">Website</label>
+              {{ form.website }}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">LinkedIn</label>
+              {{ form.linkedin }}
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-500">Skills</label>
+              {{ form.skills }}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">Years of Experience</label>
+              {{ form.experience_years }}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">Avatar</label>
+              {{ form.avatar }}
+            </div>
+            {% if user.is_recruiter %}
+            <div class="col-12"><hr><h5 class="fw-600">Company Details</h5></div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">Company Name</label>
+              {{ form.company_name }}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-500">Company Website</label>
+              {{ form.company_website }}
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-500">Company Description</label>
+              {{ form.company_description }}
+            </div>
+            {% endif %}
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-rounded px-5">Save Changes</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Resume Upload -->
+      {% if user.is_seeker %}
+      <div class="glass-card p-4">
+        <h4 class="fw-600 mb-3">Resume</h4>
+        {% if profile.resume %}
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <i class="bi bi-file-earmark-text fs-2 text-primary"></i>
+          <div>
+            <div class="fw-500">{{ profile.resume_original_name|default:"resume" }}</div>
+            <a href="{{ profile.resume.url }}" target="_blank" class="small text-primary">View Resume</a>
+          </div>
+        </div>
+        {% endif %}
+        <form method="post" action="{% url 'accounts:upload_resume' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="d-flex gap-2">
+            <input type="file" name="resume" class="form-control" accept=".pdf,.doc,.docx">
+            <button type="submit" class="btn btn-primary btn-rounded text-nowrap">Upload</button>
+          </div>
+          <div class="form-text">PDF, DOC, DOCX — max 10MB</div>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

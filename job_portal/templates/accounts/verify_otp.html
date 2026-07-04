@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Verify OTP{% endblock %}
+{% block content %}
+<div class="auth-wrapper">
+  <div class="auth-card glass-card text-center">
+    <div class="mb-4">
+      <div class="otp-icon"><i class="bi bi-shield-lock-fill text-primary fs-1"></i></div>
+      <h2 class="fw-700 mt-2">Two-Factor Verification</h2>
+      <p class="text-muted">Enter the 6-digit code from your authenticator app</p>
+    </div>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <div class="mb-4">
+        {{ form.token }}
+        {% if form.token.errors %}<div class="text-danger small mt-2">{{ form.token.errors.0 }}</div>{% endif %}
+      </div>
+      <button type="submit" class="btn btn-primary w-100 btn-rounded btn-lg mb-3">Verify</button>
+    </form>
+    <details class="text-start mt-3">
+      <summary class="small text-muted cursor-pointer">Use a recovery code instead?</summary>
+      <form method="post" class="mt-2">
+        {% csrf_token %}
+        <div class="input-group">
+          <input type="text" name="recovery_code" class="form-control" placeholder="RECOVERY-CODE">
+          <button class="btn btn-outline-secondary" type="submit">Use Code</button>
+        </div>
+      </form>
+    </details>
+  </div>
+</div>
+{% endblock %}

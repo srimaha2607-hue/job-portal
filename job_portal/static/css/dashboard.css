@@ -1,0 +1,12 @@
+/* Dashboard CSS */
+.dashboard-wrapper { background: var(--bg); min-height: 100vh; }
+.stat-card { border-radius: var(--radius) !important; transition: all .25s; }
+.stat-card:hover { transform: translateY(-4px); }
+.stat-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 1.4rem; }
+.stat-value { font-size: 2rem; font-weight: 800; color: var(--text); line-height: 1.2; }
+.stat-label { font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-top: 4px; }
+.col-lg-2dot4 { flex: 0 0 auto; width: 20%; }
+@media (max-width: 991.98px) { .col-lg-2dot4 { width: 50%; } }
+.notif-row.unread { border-left: 3px solid var(--primary); padding-left: 10px !important; }
+.table th { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted); border-bottom: 2px solid var(--border); }
+.table td { font-size: .875rem; vertical-align: middle; border-color: var(--border); }
